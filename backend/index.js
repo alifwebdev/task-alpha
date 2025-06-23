@@ -12,7 +12,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL || "http://localhost:3000",
+    origin: process.env.FRONTEND_URL,
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
@@ -27,7 +27,7 @@ mongoose
   .catch((err) => console.error("MongoDB connection error:", err));
 
 app.use(express.json());
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT;
 
 app.get("/", async (req, res) => {
   res.status(200).json({
@@ -35,7 +35,7 @@ app.get("/", async (req, res) => {
   });
 });
 
-app.use("/api", routes);
+app.use("/api-v1", routes);
 
 // not found route handler
 app.use((err, req, res, next) => {

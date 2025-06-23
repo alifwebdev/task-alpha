@@ -1,4 +1,3 @@
-import { log } from "console";
 import { createContext, useContext, useState } from "react";
 import type { User } from "~/types";
 
@@ -15,16 +14,14 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   const login = async (email: string, password: string) => {
-    console.log("Logging in with email:", email, password);
+    // console.log("Logging in with email:", email, password);
   };
 
   const logout = async () => {
-    console.log("Logging out");
-    setUser(null);
-    setIsAuthenticated(false);
+    // console.log("Logging out");
   };
 
   const values = { user, isAuthenticated, isLoading, login, logout };
