@@ -1,12 +1,21 @@
-import User from "../models/User.js";
+import User from "../models/user.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { sendEmail } from "../libs/send-email.js";
 import Verification from "../models/verification.js";
+import aj from "../libs/arcjet.js";
 
 const registerUser = async (req, res) => {
   try {
     const { name, email, password } = req.body;
+
+    const decision = await aj.protect(req, { email });
+    console.log("Arcjet decision", decision.isDenied());
+
+    if (decision.isDenied()) {
+      res.writeHead(403, { "Content-Type": "application/json" });
+      res.end(JSON.stringify({ message: "Invalid Email Address" }));
+    }
 
     const existingUser = await User.findOne({ email });
     if (existingUser) {
@@ -46,8 +55,8 @@ const registerUser = async (req, res) => {
       <a href="${verficationLink}">Verify Email</a>
     `;
     const emailSubject = "Email Verification";
-    const emailSent = await sendEmail(email, emailSubject, emailBody);
-    if (!emailSent) {
+    const isEmailSent = await sendEmail(email, emailSubject, emailBody);
+    if (!isEmailSent) {
       return res.status(500).json({
         message: "Failed to send verification email",
       });
