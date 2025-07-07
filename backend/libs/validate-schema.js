@@ -11,4 +11,8 @@ const loginSchema = z.object({
   password: z.string().min(6, "Password must be 6 characters"),
 });
 
-export { registerSchema, loginSchema };
+const verfyEmailSchema = z.object({
+  token: z.string().min(1, "Tocken is required"),
+});
+
+export { registerSchema, loginSchema, verfyEmailSchema };
