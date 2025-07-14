@@ -21,11 +21,14 @@ import {
 } from "~/components/ui/form";
 import { Input } from "~/components/ui/input";
 import { Button } from "~/components/ui/button";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+import { useLoginMutation } from "~/hook/use-auth";
+import { toast } from "sonner";
 
 type SignInformData = z.infer<typeof signInSchema>;
 
 const SignIn = () => {
+  const navigate = useNavigate();
   const form = useForm<SignInformData>({
     resolver: zodResolver(signInSchema),
     defaultValues: {
@@ -34,9 +37,22 @@ const SignIn = () => {
     },
   });
 
-  const handleOnSubmit = (data: SignInformData) => {
-    console.log("Form submitted with data:", data);
-    // Handle sign-in logic here
+  const { mutate, isPending } = useLoginMutation();
+
+  const handleOnSubmit = (vaues: SignInformData) => {
+    mutate(vaues, {
+      onSuccess: (data) => {
+        console.log(data);
+        toast.success("Login successful");
+        navigate("/dashboard");
+      },
+      onError: (error: any) => {
+        // Handle error, e.g., show error message
+        const errorMessage = error?.response?.data?.message || "Login failed";
+        console.error(error);
+        toast.error(errorMessage);
+      },
+    });
   };
 
   return (
