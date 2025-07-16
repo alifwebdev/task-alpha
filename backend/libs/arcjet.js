@@ -26,11 +26,11 @@ const aj = arcjet({
         //"CATEGORY:PREVIEW", // Link previews e.g. Slack, Discord
       ],
     }),
-    validateEmail({
-      mode: "LIVE", // will block requests. Use "DRY_RUN" to log only
-      // block disposable, invalid, and email addresses with no MX records
-      deny: ["DISPOSABLE", "INVALID", "NO_MX_RECORDS"],
-    }),
+    // validateEmail({
+    //   mode: "LIVE", // will block requests. Use "DRY_RUN" to log only
+    //   // block disposable, invalid, and email addresses with no MX records
+    //   deny: ["DISPOSABLE", "INVALID", "NO_MX_RECORDS"],
+    // }),
     // Create a token bucket rate limit. Other algorithms are supported.
     tokenBucket({
       mode: "LIVE",

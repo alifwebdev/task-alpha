@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router";
-import { Card, CardContent, CardHeader } from "~/components/ui/card";
-import { ArrowLeft, CheckCircle, Loader } from "lucide-react";
+import { Card, CardContent } from "~/components/ui/card";
+import { CheckCircle, Loader } from "lucide-react";
 import { Button } from "~/components/ui/button";
 import { useVerifyEmailMutation } from "~/hook/use-auth";
 import { toast } from "sonner";
@@ -37,15 +37,6 @@ const VerifyEmail = () => {
       <h1 className="text-2xl font-bold">Verify Email</h1>
       <p className="text-sm text-gray-500 ">Verfying your email </p>
       <Card className="max-w-md w-full shadow-lg mt-6">
-        {/* <CardHeader>
-          <Link
-            to="/sign-in"
-            className="flex items-center text-sm text-blue-500 hover:underline"
-          >
-            <ArrowLeft className="w-4 h-4 mr-2" />
-            Back to sign in
-          </Link>
-        </CardHeader> */}
         <CardContent>
           <div className="flex flex-col items-center justify-center py-6">
             {isVerifying ? (
